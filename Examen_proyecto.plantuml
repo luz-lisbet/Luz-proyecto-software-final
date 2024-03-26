@@ -1,0 +1,59 @@
+@startuml
+
+class Usuario {
+    +id: integer
+    nombre: string
+    email: string
+    // Relaciones
+    --
+    librosReservados(): Collection<Libro>
+    reseñas(): Collection<Reseña>
+}
+
+class Libro {
+    +id: integer
+    titulo: string
+    autor_id: integer
+    anio: string
+    categoria_id: integer
+    // Relaciones
+    --
+    autor(): Autor
+    categoria(): Categoria
+    reseñas(): Collection<Reseña>
+}
+
+class Reseña {
+    +id: integer
+    contenido: string
+    usuario_id: integer
+    libro_id: integer
+    // Relaciones
+    --
+    usuario(): Usuario
+    libro(): Libro
+}
+
+class Autor {
+    +id: integer
+    nombre: string
+    // Relaciones
+    --
+    libros(): Collection<Libro>
+}
+
+class Categoria {
+    +id: integer
+    nombre: string
+    // Relaciones
+    --
+    libros(): Collection<Libro>
+}
+
+Usuario "1" -- "*" Libro : tiene
+Usuario "1" -- "*" Reseña : deja
+Libro "*" -- "1" Autor : pertenece a
+Libro "*" -- "*" Categoria : clasificado en
+
+@enduml
+
